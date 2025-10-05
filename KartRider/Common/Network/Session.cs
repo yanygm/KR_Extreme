@@ -30,7 +30,7 @@ public abstract class Session
 
     private int mSending = 0;
 
-    private string _label;
+    //private string _label;
 
     public Socket Socket => _socket;
 
@@ -38,7 +38,7 @@ public abstract class Session
 
     private SocketAsyncEventArgs mWriteEventArgs { get; set; }
 
-    public string Label => _label;
+    //public string Label => _label;
 
     public abstract void OnDisconnect();
 

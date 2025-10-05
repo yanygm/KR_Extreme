@@ -30,9 +30,9 @@ public abstract class Session
 
 	private int mSending = 0;
 
-	private string _label;
+	//private string _label;
 
-	public string Label => _label;
+	//public string Label => _label;
 
 	private SocketAsyncEventArgs mReadEventArgs { get; set; }
 
@@ -178,8 +178,6 @@ public abstract class Session
 
 	private void EndReceive(IAsyncResult ar)
 	{
-		//IL_01a1: Unknown result type (might be due to invalid IL or missing references)
-		//IL_01a8: Expected O, but got Unknown
 		if (mDisconnected != 0)
 		{
 			return;
@@ -328,8 +326,6 @@ public abstract class Session
 
 	public void Send(OutPacket pPacket)
 	{
-		//IL_001d: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0027: Expected O, but got Unknown
 		try
 		{
 			if (mDisconnected == 0)
@@ -350,8 +346,6 @@ public abstract class Session
 
 	public void SendRaw(byte[] pBuffer)
 	{
-		//IL_0017: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0021: Expected O, but got Unknown
 		if (mDisconnected == 0)
 		{
 			mSendSegments.Enqueue(new ByteArraySegment(pBuffer, false));

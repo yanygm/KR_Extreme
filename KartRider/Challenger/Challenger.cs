@@ -11,12 +11,6 @@ public static class Challenger
 	{
 		new Thread((ThreadStart)delegate
 		{
-			//IL_0027: Unknown result type (might be due to invalid IL or missing references)
-			//IL_002e: Expected O, but got Unknown
-			//IL_00dd: Unknown result type (might be due to invalid IL or missing references)
-			//IL_00e4: Expected O, but got Unknown
-			//IL_0193: Unknown result type (might be due to invalid IL or missing references)
-			//IL_019a: Expected O, but got Unknown
 			for (byte b = 1; b <= 40; b++)
 			{
 				string text = "41 04 A0 3C 07 59 AC 20 00 00 00 00 00 89 03";

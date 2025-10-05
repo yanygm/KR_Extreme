@@ -8,8 +8,6 @@ public static class GameSupport
 {
 	public static void Send_FirstRequest()
 	{
-		//IL_0006: Unknown result type (might be due to invalid IL or missing references)
-		//IL_000c: Expected O, but got Unknown
 		OutPacket val = new OutPacket("GrFirstRequestPacket");
 		try
 		{
@@ -23,8 +21,6 @@ public static class GameSupport
 
 	public static void Send_GameStart()
 	{
-		//IL_0006: Unknown result type (might be due to invalid IL or missing references)
-		//IL_000c: Expected O, but got Unknown
 		OutPacket val = new OutPacket("GameControlPacket");
 		try
 		{
@@ -44,8 +40,6 @@ public static class GameSupport
 
 	public static void Send_GameRoomStart()
 	{
-		//IL_0006: Unknown result type (might be due to invalid IL or missing references)
-		//IL_000c: Expected O, but got Unknown
 		OutPacket val = new OutPacket("GrRequestStartPacket");
 		try
 		{
@@ -60,8 +54,6 @@ public static class GameSupport
 
 	public static void Send_AddLucci()
 	{
-		//IL_0012: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0018: Expected O, but got Unknown
 		byte b = 133;
 		int num = 1000;
 		OutPacket val = new OutPacket("LoRqAddLucciPacket");
@@ -80,8 +72,6 @@ public static class GameSupport
 
 	public static void Send_GameRoomReady()
 	{
-		//IL_0006: Unknown result type (might be due to invalid IL or missing references)
-		//IL_000c: Expected O, but got Unknown
 		OutPacket val = new OutPacket("GrRequestSetSlotStatePacket");
 		try
 		{
@@ -96,8 +86,6 @@ public static class GameSupport
 
 	public static void Send_LeaveRoom()
 	{
-		//IL_0006: Unknown result type (might be due to invalid IL or missing references)
-		//IL_000c: Expected O, but got Unknown
 		OutPacket val = new OutPacket("ChLeaveRoomRequestPacket");
 		try
 		{
@@ -112,8 +100,6 @@ public static class GameSupport
 
 	public static void Send_RoomKick()
 	{
-		//IL_001b: Unknown result type (might be due to invalid IL or missing references)
-		//IL_0021: Expected O, but got Unknown
 		for (int i = 0; i < 8; i++)
 		{
 			if (Program.MySlot != i)
@@ -134,8 +120,6 @@ public static class GameSupport
 
 	public static void ALL_Disconnect()
 	{
-		//IL_0006: Unknown result type (might be due to invalid IL or missing references)
-		//IL_000c: Expected O, but got Unknown
 		OutPacket val = new OutPacket("GameSlotPacket");
 		try
 		{

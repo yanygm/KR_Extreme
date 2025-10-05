@@ -44,8 +44,6 @@ public class SessionKey
 
 	public void GenNew(int baseTick = -1)
 	{
-		//IL_0067: Unknown result type (might be due to invalid IL or missing references)
-		//IL_006d: Expected O, but got Unknown
 		a = 0u;
 		uint key = CryptoConstants.GetKey(a);
 		b = key ^ 0xCC511046u;

@@ -28,6 +28,12 @@ public class SessionGroup
 
 	public List<byte> PlaneSets2 = new List<byte>();
 
+	public static string Service = "cn";
+
+	public static byte nClientLoc = 47;
+
+	public static ushort usLocale = 3002;
+
 	public int SendPlaneCount = 6;
 
 	public int TotalSendPlaneCount = 6;
@@ -245,7 +251,7 @@ public class SessionGroup
 			{
 				val.WriteByte((byte)0);
 			}
-			KartSpec.Encode(val, encodeOriginal: true);
+			KartSpec.Encode(val, encodeOriginal: false);
 			val.WriteHexString("16 00 00 00 53 02 00 00 00 00 53 24 92 93 92 DF E1 17 53 DB 55 9C 14 D7 C9 20");
 			val.WriteInt(0);
 			val.WriteInt(0);

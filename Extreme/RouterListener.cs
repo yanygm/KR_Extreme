@@ -8,8 +8,6 @@ public class RouterListener
 {
 	public static string sIP;
 
-	public static string forceConnect;
-
 	public static IPEndPoint CurrentUDPServer { get; set; }
 
 	public static string ForceConnect { get; set; }
@@ -32,13 +30,12 @@ public class RouterListener
 		{
 			Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 			Socket clientSocket = Listener.EndAcceptSocket(ar);
-			forceConnect = sIP;
-			if (!(ForceConnect == "") && ForceConnect != "0.0.0.0")
+			if (ForceConnect != "" && ForceConnect != "0.0.0.0")
 			{
-				forceConnect = ForceConnect;
+				sIP = ForceConnect;
 			}
-			Console.WriteLine("Connecting to {0}:39311", forceConnect);
-			socket.Connect(forceConnect, 39311);
+			Console.WriteLine("Connecting to {0}:39311", sIP);
+			socket.Connect(sIP, 39311);
 			if (socket.Connected)
 			{
 				MySession = new SessionGroup(clientSocket, socket);

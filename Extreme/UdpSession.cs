@@ -75,8 +75,6 @@ public sealed class UdpSession
 
 	private void EndReceive(IAsyncResult iar)
 	{
-		//IL_00b3: Unknown result type (might be due to invalid IL or missing references)
-		//IL_00ba: Expected O, but got Unknown
 		try
 		{
 			EndPoint endPoint = new IPEndPoint(IPAddress.Any, 0);

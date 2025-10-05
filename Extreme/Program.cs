@@ -1,25 +1,18 @@
+using KartRider.Common.Utilities;
+using KartRider.Data;
+using KartRider.IO;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using KartRider.Common.Utilities;
-using KartRider.IO;
 
 namespace Extreme;
 
 internal static class Program
 {
-	public static Development DevelopmentDlg;
-
-	public static KartSpecDialog KartSpecDlg;
-
-	public static FakeClient Client;
-
 	public static RouterForm RouterFormDlg;
 
-	public static AntiHackDlg HackPwnDlg;
-
-	public static int MySlot;
+    public static int MySlot;
 
 	public static int MAX_EQP_P;
 
@@ -43,6 +36,13 @@ internal static class Program
 
 	public static bool GameReport_Development;
 
+	public static PacketName[] PacketNames = new PacketName[] {
+		PacketName.C2S_NGSData,
+		PacketName.S2C_NGSData,
+		PacketName.PqServerSideUdpBindCheck,
+		PacketName.LoPingRequestPacket
+	};
+
 	public static int Tick
 	{
 		get
@@ -57,9 +57,9 @@ internal static class Program
 	static Program()
 	{
 		MySlot = -1;
-		MAX_EQP_P = 32;
+		MAX_EQP_P = 34;
 		ListHacks = new List<string>();
-		ShowPacketLog = false;
+		ShowPacketLog = true;
 		Randomizer = new Random(Environment.TickCount);
 		Goal = false;
 		ReportLog = false;
@@ -70,9 +70,9 @@ internal static class Program
 		KartSpec = false;
 	}
 
-	public static void HandleSpecChange(KartSpec spec, OutPacket oPacket, InPacket iPacket)
+	public static int HandleSpecChange(KartSpec spec, OutPacket oPacket, InPacket iPacket)
 	{
-		spec.Decode(iPacket);
+		int endPosition = spec.Decode(iPacket);
 		if (!KartSpec)
 		{
 			spec.CornerDrawFactor += 0.055f;
@@ -92,33 +92,21 @@ internal static class Program
 		}
 		spec.DriftMaxGauge = Math.Max(1f, spec.DriftMaxGauge);
 		spec.Encode(oPacket, encodeOriginal: false);
+		return endPosition;
 	}
 
 	[STAThread]
 	private static void Main(string[] args)
 	{
+		// 保存原始输出流
+		var originalOut = Console.Out;
+
+		// 创建缓存编写器并替换控制台输出
+		CachedConsoleWriter.cachedWriter = new CachedConsoleWriter(originalOut);
+		Console.SetOut(CachedConsoleWriter.cachedWriter);
+
 		Application.EnableVisualStyles();
 		Application.SetCompatibleTextRenderingDefault(defaultValue: false);
-		if (Development)
-		{
-			DevelopmentDlg = new Development();
-			DevelopmentDlg.Show();
-		}
-		if (FakeClient)
-		{
-			Client = new FakeClient();
-			Client.Show();
-		}
-		if (AntiHack)
-		{
-			HackPwnDlg = new AntiHackDlg();
-			HackPwnDlg.Show();
-		}
-		if (KartSpec)
-		{
-			KartSpecDlg = new KartSpecDialog();
-			KartSpecDlg.Show();
-		}
 		Application.Run(RouterFormDlg = new RouterForm());
 		NativeMethods.FreeConsole();
 	}
