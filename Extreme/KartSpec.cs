@@ -172,8 +172,9 @@ public class KartSpec
 	public float chargeAntiCollideBalance { get; set; }
 	public float startItemTableId { get; set; }
 	public float startItemId { get; set; }
+    public byte PartsBoosterEffectLock { get; set; }
 
-	public int Decode(InPacket iPacket)
+    public int Decode(InPacket iPacket)
 	{
 		int position = iPacket.Position;
 		draftMulAccelFactor = iPacket.ReadEncodedFloat();
@@ -267,7 +268,8 @@ public class KartSpec
 		startItemTableId = iPacket.ReadEncodedFloat();
 		startItemId = iPacket.ReadEncodedFloat();
 		AvailableSpec = iPacket.ReadBytes(4);
-		int endPosition = iPacket.Position;
+        PartsBoosterEffectLock = iPacket.ReadEncodedByte();
+        int endPosition = iPacket.Position;
 		int specLength = iPacket.Position - position;
 		iPacket.Position = position;
 		OriginalSpec = iPacket.ReadBytes(specLength);
@@ -363,6 +365,7 @@ public class KartSpec
 		Console.WriteLine("startItemTableId: " + startItemTableId);
 		Console.WriteLine("startItemId: " + startItemId);
 		Console.WriteLine("AvailableSpec: " + BitConverter.ToString(AvailableSpec).Replace("-", " "));
+		Console.WriteLine("PartsBoosterEffectLock: " + PartsBoosterEffectLock);
 		Console.WriteLine("-------------------------------------------");
 		return endPosition;
 	}
@@ -462,6 +465,7 @@ public class KartSpec
 			oPacket.WriteEncFloat(startItemTableId);
 			oPacket.WriteEncFloat(startItemId);
 			oPacket.WriteBytes(AvailableSpec);
+			oPacket.WriteEncByte(PartsBoosterEffectLock);
 		}
 		else
 		{

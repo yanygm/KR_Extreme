@@ -37,12 +37,32 @@ public class ClientSession : Session
             iPacket.Position = 0;
             uint num = iPacket.ReadUInt();
             PacketName packetName = (PacketName)num;
-
-            using (OutPacket outPacket = new OutPacket())
+            Console.WriteLine("Send-{0}: {1}", packetName, BitConverter.ToString(iPacket.ToArray()).Replace("-", " "));
+            if (num == Adler32Helper.GenerateAdler32_ASCII("ChClientUdpAddrPacket", 0))
             {
-                outPacket.WriteBytes(iPacket.ToArray());
-                Parent.Server.Send(outPacket);
+                Parent.UDPAddr.RelayedEndPoint = iPacket.ReadEndPoint();
+                Console.WriteLine($"ChClientUdpAddrPacket : {Parent.UDPAddr.RelayedEndPoint.Address}:{Parent.UDPAddr.RelayedEndPoint.Port}, Local : {Parent.UDPAddr.SocketEndPoint.Address}:{Parent.UDPAddr.SocketEndPoint.Port}");
+                Default(iPacket);
             }
+            else if (num == Adler32Helper.GenerateAdler32_ASCII("ChClientP2pAddrPacket", 0))
+            {
+                Parent.P2PAddr.RelayedEndPoint = iPacket.ReadEndPoint();
+                Console.WriteLine($"ChClientP2pAddrPacket : {Parent.P2PAddr.RelayedEndPoint.Address}:{Parent.P2PAddr.RelayedEndPoint.Port}, Local : {Parent.P2PAddr.SocketEndPoint.Address}:{Parent.P2PAddr.SocketEndPoint.Port}");
+                Default(iPacket);
+            }
+            else
+            {
+                Default(iPacket);
+            }
+        }
+    }
+
+    public void Default(InPacket iPacket)
+    {
+        using (OutPacket outPacket = new OutPacket())
+        {
+            outPacket.WriteBytes(iPacket.ToArray());
+            Parent.Server.Send(outPacket);
         }
     }
 }

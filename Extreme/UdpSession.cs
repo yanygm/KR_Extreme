@@ -55,6 +55,7 @@ public sealed class UdpSession
 		try
 		{
 			_socket.BeginSendTo(array, 0, array.Length, SocketFlags.None, endPoint, EndSend, null);
+			Console.WriteLine($"Udp-Send: {BitConverter.ToString(array)}");
 		}
 		catch
 		{
@@ -104,6 +105,7 @@ public sealed class UdpSession
 						{
 							BeginSend(array, RelayedLocalEndPoint);
 						}
+						Console.WriteLine($"Udp-Receive: {BitConverter.ToString(array)}");
 					}
 					finally
 					{

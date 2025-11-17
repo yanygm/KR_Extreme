@@ -55,10 +55,7 @@ public class ServerSession : Session
             ((PacketBase)iPacket).Position = 0;
             uint num = iPacket.ReadUInt();
             PacketName packetName = (PacketName)num;
-            if (Program.ShowPacketLog && !Array.Exists(Program.PacketNames, PacketName => PacketName == packetName))
-            {
-                Console.WriteLine("Receive-{0}: {1}", packetName, BitConverter.ToString(iPacket.ToArray()).Replace("-", " "));
-            }
+            Console.WriteLine("Receive-{0}: {1}", packetName, BitConverter.ToString(iPacket.ToArray()).Replace("-", " "));
             if (num == Adler32Helper.GenerateAdler32_ASCII("PcUserShutDownMessage", 0u))
             {
                 return;
@@ -529,7 +526,7 @@ public class ServerSession : Session
                     new Thread((ThreadStart)delegate
                     {
                         Thread.Sleep((type == 5) ? 100 : 1100);
-                        using(OutPacket outPacket = new OutPacket("SpRqLotteryPacket"))
+                        using (OutPacket outPacket = new OutPacket("SpRqLotteryPacket"))
                         {
                             outPacket.WriteShort((short)LotteryID);
                             outPacket.WriteBool(true);
@@ -539,7 +536,7 @@ public class ServerSession : Session
                         if (LotteryType == 2)
                         {
                             Thread.Sleep(300);
-                            using(OutPacket oPacker = new OutPacket("SpRqBingoGachaPacket"))
+                            using (OutPacket oPacker = new OutPacket("SpRqBingoGachaPacket"))
                             {
                                 oPacker.WriteInt(3);
                                 Send(oPacker);
@@ -904,11 +901,6 @@ public class ServerSession : Session
 
     public new void Send(OutPacket oPacket)
     {
-        PacketName packetName = (PacketName)BitConverter.ToUInt32(oPacket.ToArray(), 0);
-        if (Program.ShowPacketLog && !Array.Exists(Program.PacketNames, PacketName => PacketName == packetName))
-        {
-            Console.WriteLine("Send-{0}: {1}", packetName, BitConverter.ToString(oPacket.ToArray()).Replace("-", " "));
-        }
         base.Send(oPacket);
     }
 

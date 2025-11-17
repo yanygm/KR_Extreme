@@ -36,13 +36,6 @@ internal static class Program
 
 	public static bool GameReport_Development;
 
-	public static PacketName[] PacketNames = new PacketName[] {
-		PacketName.C2S_NGSData,
-		PacketName.S2C_NGSData,
-		PacketName.PqServerSideUdpBindCheck,
-		PacketName.LoPingRequestPacket
-	};
-
 	public static int Tick
 	{
 		get
@@ -73,24 +66,24 @@ internal static class Program
 	public static int HandleSpecChange(KartSpec spec, OutPacket oPacket, InPacket iPacket)
 	{
 		int endPosition = spec.Decode(iPacket);
-		if (!KartSpec)
-		{
-			spec.CornerDrawFactor += 0.055f;
-			spec.TransAccelFactor += 0.015f;
-			spec.DriftEscapeForce += 500f;
-			spec.SteerConstraint += 0.3f;
-			spec.SlipBrakeForce -= 200f;
-			spec.DriftMaxGauge -= 100f;
-			spec.DragFactor -= 0.0008f;
-			spec.GripBrakeForce -= 12f;
-			spec.RearGripFactor += 0.3f;
-			spec.FrontGripFactor += 0.3f;
-			spec.NormalBoosterTime += 100f;
-			spec.StartBoosterTimeSpeed += 100f;
-			float antiCollideBalance = (spec.antiCollideBalance = 0f);
-			spec.antiCollideBalance = antiCollideBalance;
-		}
-		spec.DriftMaxGauge = Math.Max(1f, spec.DriftMaxGauge);
+		// if (!KartSpec)
+		// {
+		// 	spec.CornerDrawFactor += 0.055f;
+		// 	spec.TransAccelFactor += 0.015f;
+		// 	spec.DriftEscapeForce += 500f;
+		// 	spec.SteerConstraint += 0.3f;
+		// 	spec.SlipBrakeForce -= 200f;
+		// 	spec.DriftMaxGauge -= 100f;
+		// 	spec.DragFactor -= 0.0008f;
+		// 	spec.GripBrakeForce -= 12f;
+		// 	spec.RearGripFactor += 0.3f;
+		// 	spec.FrontGripFactor += 0.3f;
+		// 	spec.NormalBoosterTime += 100f;
+		// 	spec.StartBoosterTimeSpeed += 100f;
+		// 	float antiCollideBalance = (spec.antiCollideBalance = 0f);
+		// 	spec.antiCollideBalance = antiCollideBalance;
+		// }
+		// spec.DriftMaxGauge = Math.Max(1f, spec.DriftMaxGauge);
 		spec.Encode(oPacket, encodeOriginal: false);
 		return endPosition;
 	}
@@ -98,10 +91,10 @@ internal static class Program
 	[STAThread]
 	private static void Main(string[] args)
 	{
-		// ±£´æÔ­Ê¼Êä³öÁ÷
+		// ï¿½ï¿½ï¿½ï¿½Ô­Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½
 		var originalOut = Console.Out;
 
-		// ´´½¨»º´æ±àÐ´Æ÷²¢Ìæ»»¿ØÖÆÌ¨Êä³ö
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½æ»»ï¿½ï¿½ï¿½ï¿½Ì¨ï¿½ï¿½ï¿½
 		CachedConsoleWriter.cachedWriter = new CachedConsoleWriter(originalOut);
 		Console.SetOut(CachedConsoleWriter.cachedWriter);
 
